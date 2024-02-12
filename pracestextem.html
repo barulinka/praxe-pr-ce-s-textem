@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Práce s textem</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    
+
+    h1 {
+      color: #000000;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    input {
+      padding: 5px;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #outputResult {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Práce s textem </h1>
+
+  <form id="textForm">
+    <label for="inputText">Zadej text: </label>
+    <input type="text" id="inputText" required>
+    <br>
+
+    <button type="button" onclick="reverseString()">Reverze řetězce</button>
+    <button type="button" onclick="splitIntoWords()">Rozdělení na slova</button>
+    <button type="button" onclick="countWordOccurrences()">Počet výskytů slova</button>
+    <button type="button" onclick="replaceLetters()">Změna písmen</button>
+    <button type="button" onclick="searchText()">Hledání textu</button>
+  </form>
+
+  <div id="outputResult"></div>
+
+  <script>
+    function reverseString() {
+      let inputText = document.getElementById("inputText").value;
+      let reversedText = inputText.split("").reverse().join("");
+      displayResult(`Reverze řetězce: ${reversedText}`);
+    }
+
+    function splitIntoWords() {
+      let inputText = document.getElementById("inputText").value;
+      let words = inputText.split(" ");
+      displayResult(`Slova ve větě: ${words.join(", ")}`);
+    }
+
+    function countWordOccurrences() {
+      let inputText = document.getElementById("inputText").value;
+      let targetWord = prompt("Zadej hledané slovo:");
+      let wordCount = inputText.split(targetWord).length - 1;
+      displayResult(`Počet výskytů slova "${targetWord}": ${wordCount}`);
+    }
+
+    function replaceLetters() {
+      let inputText = document.getElementById("inputText").value;
+      let originalChar = prompt("Zadej písmeno/slovo k nahrazení:");
+      let replacement = prompt("Zadej písmeno/slovo pro nahrazení:");
+      let modifiedText = inputText.split(originalChar).join(replacement);
+      displayResult(`Změněný text: ${modifiedText}`);
+    }
+
+    function searchText() {
+      let inputText = document.getElementById("inputText").value;
+      let searchQuery = prompt("Zadej text která hledáte:");
+      let positions = [];
+
+      let index = inputText.indexOf(searchQuery);
+      while (index !== -1) {
+        positions.push(index);
+        index = inputText.indexOf(searchQuery, index + 1);
+      }
+
+      displayResult(`Pozice hledaného textu: ${positions.join(", ")}`);
+    }
+
+    function displayResult(result) {
+      document.getElementById("outputResult").innerText = result;
+    }
+  </script>
+</body>
+</html>
